@@ -1,0 +1,22 @@
+{
+	"name": "changelog-updater",
+	"version": "0.1.0",
+	"description": "Update [Unreleased] in CHANGELOG.md to current package version.",
+	"main": "index.js",
+	"bin": {
+		"changelog-updater": "./bin/changelog-updater.js"
+	},
+	"scripts": {
+		"start": "npm run changelog-updater",
+		"changelog-updater": "node ./bin/changelog-updater.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prettier": "prettier --write '**/*.js'",
+		"version": "npm run changelog-updater && git add ./CHANGELOG.md"
+	},
+	"author": "Pavel Nikolajev",
+	"license": "MIT",
+	"dependencies": {},
+	"devDependencies": {
+		"prettier": "^1.9.1"
+	}
+}
