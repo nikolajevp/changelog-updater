@@ -1,5 +1,7 @@
 # changelog-updater
 [![npm package](https://img.shields.io/npm/v/changelog-updater.svg?style=flat-square)](https://www.npmjs.org/package/changelog-updater)
+[![Build Status](https://travis-ci.org/nikolajevp/changelog-updater.svg?branch=master)](https://travis-ci.org/nikolajevp/changelog-updater)
+[![Coverage Status](https://coveralls.io/repos/github/nikolajevp/changelog-updater/badge.svg?branch=master)](https://coveralls.io/github/nikolajevp/changelog-updater?branch=master)
 [![Dependencies](https://img.shields.io/david/nikolajevp/changelog-updater.svg?style=flat-square)](https://david-dm.org/nikolajevp/changelog-updater)
 [![DevDependencies](https://img.shields.io/david/dev/nikolajevp/changelog-updater.svg?style=flat-square)](https://david-dm.org/nikolajevp/changelog-updater?type=dev)
 [![GitHub license](https://img.shields.io/github/license/nikolajevp/changelog-updater.svg)](https://github.com/nikolajevp/changelog-updater/blob/master/LICENSE)
