@@ -13,6 +13,8 @@
 		"test:watch": "npm test -- --watch",
 		"test:coverage": "npm test -- --coverage",
 		"test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+		"travis": "npm run test:coveralls && npm run lint",
+		"lint": "npm run prettier && eslint .",
 		"prettier": "prettier --write '**/*.js'",
 		"version": "npm run changelog-updater && git add ./CHANGELOG.md"
 	},
@@ -25,6 +27,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"coveralls": "^3.0.0",
+		"eslint": "^4.13.1",
 		"jest": "^21.2.1",
 		"prettier": "^1.9.1"
 	}
