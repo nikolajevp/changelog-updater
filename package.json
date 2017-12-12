@@ -2,21 +2,30 @@
 	"name": "changelog-updater",
 	"version": "0.1.0",
 	"description": "Update [Unreleased] in CHANGELOG.md to current package version.",
-	"main": "index.js",
+	"main": "lib/index.js",
 	"bin": {
 		"changelog-updater": "./bin/changelog-updater.js"
 	},
 	"scripts": {
 		"start": "npm run changelog-updater",
 		"changelog-updater": "node ./bin/changelog-updater.js",
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest",
+		"test:watch": "npm test -- --watch",
+		"test:coverage": "npm test -- --coverage",
+		"test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
 		"prettier": "prettier --write '**/*.js'",
 		"version": "npm run changelog-updater && git add ./CHANGELOG.md"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nikolajevp/changelog-updater.git"
 	},
 	"author": "Pavel Nikolajev",
 	"license": "MIT",
 	"dependencies": {},
 	"devDependencies": {
+		"coveralls": "^3.0.0",
+		"jest": "^21.2.1",
 		"prettier": "^1.9.1"
 	}
 }
