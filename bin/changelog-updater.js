@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const updateChangelog = require('../index');
+const updateChangelog = require('../lib/index');
 
 updateChangelog();
