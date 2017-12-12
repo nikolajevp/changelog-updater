@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Unit tests
+- Eslint
+
 ## 0.1.0 - 2017-12-09
 ### Added
 - Initial commit
