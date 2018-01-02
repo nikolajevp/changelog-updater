@@ -4,4 +4,9 @@ node_js:
   - "8"
   - "6"
   - "4"
-script: npm run test:coveralls
+script: npm test
+jobs:
+  include:
+    - stage: coveralls
+      node_js: "node"
+      script: npm run test:coveralls
