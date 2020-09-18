@@ -2,7 +2,7 @@
 
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-global-assign */
-describe('updateChangelog', () => {
+describe('changelog-updater', () => {
 	const fs = require('fs');
 	
 	const fixturesPath = `${__dirname}/fixtures`;
@@ -14,15 +14,18 @@ describe('updateChangelog', () => {
 		}, {});
 	
 	const constantDate = new Date('2020-09-18T12:00:00');
+	const changelogFilename = 'CHANGELOG.md';
+	const noChangesMessage = `No changes under [Unreleased] in ${changelogFilename}`;
 	
-	let updateChangelog = () => {};
-			
-	let readFileSync;
-	let writeFileSync;
+	let main = () => {};
+
+	let readFileSyncMock;
+	let writeFileSyncMock;
+	let exitMock;
 	
 	let _Date;
 	let _npmPackageVersion;
-
+	
 	beforeAll(() => {
 		_Date = Date;
 		Date = class extends Date {
@@ -43,44 +46,76 @@ describe('updateChangelog', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
 		
-		readFileSync = jest.spyOn(fs, 'readFileSync');
-		writeFileSync = jest.spyOn(fs, 'writeFileSync');
-		
-		updateChangelog = require('../lib/index').updateChangelog;
+		readFileSyncMock = jest.spyOn(fs, 'readFileSync');
+		writeFileSyncMock = jest.spyOn(fs, 'writeFileSync');
+		exitMock = jest.spyOn(process, 'exit');
+
+		main = require('../lib/index').main;
 	});
 
-	it('should throw error if not possible to read changelog', () => {
-		readFileSync.mockImplementation(() => {
-			throw new Error('Could not read file');
+	describe('default: update changelog', () => {
+		it('should throw error if not possible to read changelog', () => {
+			readFileSyncMock.mockImplementation(() => {
+				throw new Error('Could not read file');
+			});
+			writeFileSyncMock.mockImplementation(() => {});
+
+			expect(main).toThrow('Could not read file');
+		});
+	
+		it('should throw error if not possible to write changelog', () => {
+			readFileSyncMock.mockImplementation(() => fixtures['github.before.md']);
+			writeFileSyncMock.mockImplementation(() => {
+				throw new Error('Could not write file');
+			});
+
+			expect(main).toThrow('Could not write file');
 		});
 		
-		expect(updateChangelog).toThrow('Could not read file');
+		it('should update [Unreleased] section for Github', () => {
+			readFileSyncMock.mockImplementation(() => fixtures['github.before.md']);
+			writeFileSyncMock.mockImplementation(() => {});
+
+			main();
+
+			expect(writeFileSyncMock.mock.calls[0][1]).toEqual(
+				fixtures['github.after.md']
+			);
+		});
+	
+		it('should update [Unreleased] section for Bitbucket', () => {
+			readFileSyncMock.mockImplementation(() => fixtures['bitbucket.before.md']);
+			writeFileSyncMock.mockImplementation(() => {});
+
+			main();
+
+			expect(writeFileSyncMock.mock.calls[0][1]).toEqual(
+				fixtures['bitbucket.after.md']
+			);
+		});
 	});
 
-	it('should throw error if not possible to write changelog', () => {
-		readFileSync.mockImplementation(() => 'anything');
-		writeFileSync.mockImplementation(() => {
-			throw new Error('Could not write file');
+	describe('--check', () => {
+		it('should exit normally if using `--check` and [Unreleased] section is filled', () => {
+			readFileSyncMock.mockImplementation(
+				() => fixtures['github.before.md']
+			);
+			writeFileSyncMock.mockImplementation(() => {});
+
+			main(['--check']);
+
+			expect(exitMock.mock.calls[0][0]).toEqual(0);
 		});
 
-		expect(updateChangelog).toThrow('Could not write file');
-	});
+		it('should throw if using `--check` and [Unreleased] section is empty', () => {
+			readFileSyncMock.mockImplementation(
+				() => fixtures['empty.unreleased.md']
+			);
+			writeFileSyncMock.mockImplementation(() => {});
 
-	it('should update [Unreleased] section for Github', () => {
-		readFileSync.mockImplementation(() => fixtures['github.before.md']);
-		writeFileSync.mockImplementation(() => {});
-
-		updateChangelog();
-
-		expect(writeFileSync.mock.calls[0][1]).toEqual(fixtures['github.after.md']);
-	});
-
-	it('should update [Unreleased] section for Bitbucket', () => {
-		readFileSync.mockImplementation(() => fixtures['bitbucket.before.md']);
-		writeFileSync.mockImplementation(() => {});
-
-		updateChangelog();
-
-		expect(writeFileSync.mock.calls[0][1]).toEqual(fixtures['bitbucket.after.md']);
+			expect(() => main(['--check'])).toThrow(
+				noChangesMessage
+			);
+		});
 	});
 });
