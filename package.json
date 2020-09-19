@@ -23,6 +23,12 @@
 		"url": "https://github.com/nikolajevp/changelog-updater.git"
 	},
 	"author": "Pavel Nikolajev",
+	"contributors": [
+		{
+			"name": "Charlie Karniol",
+			"url": "https://github.com/karniol"
+		}
+	],
 	"license": "MIT",
 	"dependencies": {},
 	"devDependencies": {
