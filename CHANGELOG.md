@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Command-line option `--init` to create a new changelog if it does not exist.
 - Command-line option `--check` to check if changelog has any changes under \[Unreleased\].
 
 ## [1.1.0] - 2018-01-02
