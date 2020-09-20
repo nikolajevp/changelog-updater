@@ -4,28 +4,34 @@
 /* eslint-disable no-global-assign */
 describe('changelog-updater', () => {
 	const fs = require('fs');
-	
+
 	const fixturesPath = `${__dirname}/fixtures`;
-	const fixtures = fs.readdirSync(fixturesPath)
+	const fixtures = fs
+		.readdirSync(fixturesPath)
 		.reduce((allFixtures, filename) => {
-			allFixtures[filename] = fs.readFileSync(`${fixturesPath}/${filename}`, { encoding: 'utf8' });
-			
+			allFixtures[filename] = fs.readFileSync(
+				`${fixturesPath}/${filename}`,
+				{
+					encoding: 'utf8',
+				}
+			);
+
 			return allFixtures;
 		}, {});
-	
+
 	const constantDate = new Date('2020-09-18T12:00:00');
 	const changelogFilename = 'CHANGELOG.md';
 	const noChangesMessage = `No changes under [Unreleased] in ${changelogFilename}`;
-	
+
 	let main = () => {};
 
 	let readFileSyncMock;
 	let writeFileSyncMock;
 	let exitMock;
-	
+
 	let _Date;
 	let _npmPackageVersion;
-	
+
 	beforeAll(() => {
 		_Date = Date;
 		Date = class extends Date {
@@ -33,11 +39,11 @@ describe('changelog-updater', () => {
 				return constantDate;
 			}
 		};
-		
+
 		_npmPackageVersion = process.env.npm_package_version;
 		process.env.npm_package_version = '1.0.0';
 	});
-	
+
 	afterAll(() => {
 		Date = _Date;
 		process.env.npm_package_version = _npmPackageVersion;
@@ -45,7 +51,7 @@ describe('changelog-updater', () => {
 
 	beforeEach(() => {
 		jest.resetAllMocks();
-		
+
 		readFileSyncMock = jest.spyOn(fs, 'readFileSync');
 		writeFileSyncMock = jest.spyOn(fs, 'writeFileSync');
 		exitMock = jest.spyOn(process, 'exit');
@@ -62,18 +68,22 @@ describe('changelog-updater', () => {
 
 			expect(main).toThrow('Could not read file');
 		});
-	
+
 		it('should throw error if not possible to write changelog', () => {
-			readFileSyncMock.mockImplementation(() => fixtures['github.before.md']);
+			readFileSyncMock.mockImplementation(
+				() => fixtures['github.before.md']
+			);
 			writeFileSyncMock.mockImplementation(() => {
 				throw new Error('Could not write file');
 			});
 
 			expect(main).toThrow('Could not write file');
 		});
-		
+
 		it('should update [Unreleased] section for Github', () => {
-			readFileSyncMock.mockImplementation(() => fixtures['github.before.md']);
+			readFileSyncMock.mockImplementation(
+				() => fixtures['github.before.md']
+			);
 			writeFileSyncMock.mockImplementation(() => {});
 
 			main();
@@ -82,9 +92,11 @@ describe('changelog-updater', () => {
 				fixtures['github.after.md']
 			);
 		});
-	
+
 		it('should update [Unreleased] section for Bitbucket', () => {
-			readFileSyncMock.mockImplementation(() => fixtures['bitbucket.before.md']);
+			readFileSyncMock.mockImplementation(
+				() => fixtures['bitbucket.before.md']
+			);
 			writeFileSyncMock.mockImplementation(() => {});
 
 			main();
@@ -92,6 +104,77 @@ describe('changelog-updater', () => {
 			expect(writeFileSyncMock.mock.calls[0][1]).toEqual(
 				fixtures['bitbucket.after.md']
 			);
+		});
+	});
+
+	describe('--init', () => {
+		[
+			{ type: 'github', form: 'short' },
+			{ type: 'github', form: 'long' },
+			{ type: 'bitbucket', form: 'short' },
+			{ type: 'bitbucket', form: 'long' },
+		].forEach((testCase) => {
+			it(`should create a new changelog for \`${testCase.type}\` (${testCase.form} \`repository\`)`, () => {
+				readFileSyncMock
+					.mockImplementationOnce(() => fixtures['init.default.md'])
+					.mockImplementationOnce(
+						() =>
+							fixtures[
+								`package.${testCase.type}.${testCase.form}.json`
+							]
+					);
+				writeFileSyncMock.mockImplementation(() => {});
+
+				main(['--init']);
+
+				const args = writeFileSyncMock.mock.calls[0];
+
+				expect(args[0]).toEqual(changelogFilename);
+				expect(args[1]).toEqual(fixtures[`init.${testCase.type}.md`]);
+				expect(args[2]).toEqual({ encoding: 'utf8', flag: 'wx' });
+			});
+		});
+
+		it('should throw if `repository` is invalid', () => {
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['init.default.md'])
+				.mockImplementationOnce(
+					() => fixtures['package.repository.invalid.json']
+				);
+			writeFileSyncMock.mockImplementation(() => {});
+
+			expect(() => main(['--init'])).toThrow();
+		});
+
+		it('should throw if `repository` is missing', () => {
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['init.default.md'])
+				.mockImplementationOnce(
+					() => fixtures['package.repository.missing.json']
+				);
+			writeFileSyncMock.mockImplementation(() => {});
+
+			expect(() => main(['--init'])).toThrow();
+		});
+
+		it('should throw if `version` is missing', () => {
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['init.default.md'])
+				.mockImplementationOnce(
+					() => fixtures['package.version.missing.json']
+				);
+			writeFileSyncMock.mockImplementation(() => {});
+
+			expect(() => main(['--init'])).toThrow();
+		});
+
+		it('should throw if changelog already exists', () => {
+			readFileSyncMock.mockImplementation(() => {});
+			writeFileSyncMock.mockImplementation(() => {
+				throw new Error('Could not write file');
+			});
+
+			expect(() => main(['--init'])).toThrow();
 		});
 	});
 
@@ -113,9 +196,7 @@ describe('changelog-updater', () => {
 			);
 			writeFileSyncMock.mockImplementation(() => {});
 
-			expect(() => main(['--check'])).toThrow(
-				noChangesMessage
-			);
+			expect(() => main(['--check'])).toThrow(noChangesMessage);
 		});
 	});
 });

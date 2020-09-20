@@ -20,12 +20,34 @@ $ npm i -D changelog-updater
 2. Add script `version` to `package.json`:
    
 ```json
-"scripts": {
-  "version": "changelog-updater && git add CHANGELOG.md"
+{
+  "scripts": {
+    "version": "changelog-updater && git add CHANGELOG.md"
+  }
 }
 ```
 
 ## Options
+
+### `--init`
+
+Creates a new changelog if it does not exist.
+
+Set `repository` in `package.json`:
+
+```json
+{
+  "repository": {
+    "url": "https://github.com/username/repository.git"
+  }
+}
+```
+
+Use in the root of your new project:
+
+```bash
+$ npx changelog-updater --init
+```
 
 ### `--check`
 
