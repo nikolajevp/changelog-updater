@@ -14,8 +14,8 @@
 		"test:coverage": "npm test -- --coverage",
 		"test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
 		"travis": "npm run test:coveralls && npm run lint",
-		"lint": "npm run prettier && eslint .",
-		"prettier": "prettier --write '**/*.js'",
+		"lint": "prettier --check '**/*.js' && eslint .",
+		"lint:fix": "prettier --write '**/*.js' && eslint --fix .",
 		"version": "npm run changelog-updater && git add ./CHANGELOG.md"
 	},
 	"repository": {
@@ -23,12 +23,24 @@
 		"url": "https://github.com/nikolajevp/changelog-updater.git"
 	},
 	"author": "Pavel Nikolajev",
+	"contributors": [
+		{
+			"name": "Charlie Karniol",
+			"url": "https://github.com/karniol"
+		}
+	],
 	"license": "MIT",
 	"dependencies": {},
 	"devDependencies": {
-		"coveralls": "^3.0.0",
-		"eslint": "^4.14.0",
-		"jest": "^21.2.1",
-		"prettier": "^1.9.2"
+		"coveralls": "^3.1.0",
+		"eslint": "^7.9.0",
+		"husky": "^4.3.0",
+		"jest": "^26.4.2",
+		"prettier": "^2.1.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run lint && npm run test"
+		}
 	}
 }

@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   - "node"
-  - "8"
-  - "6"
-  - "4"
+  - "14"
+  - "12"
+  - "10"
 script: npm test
 jobs:
   include:

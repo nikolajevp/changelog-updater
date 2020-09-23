@@ -11,15 +11,61 @@ Update [Unreleased] in CHANGELOG.md to current package version.
 Expects the changelog to follow [keepachangelog.com v1.0.0](http://keepachangelog.com/en/1.0.0/) guidelines.
 
 ## Usage
-1. Install with npm
-  ```bash
-  $ npm install --save-dev changelog-updater
-  ```
+1. Install with npm:
+   
+```bash
+$ npm i -D changelog-updater
+```
 
-2. Add script `version` to `package.json`.
+2. Add script `version` to `package.json`:
+   
+```json
+{
+  "scripts": {
+    "version": "changelog-updater && git add CHANGELOG.md"
+  }
+}
+```
 
-  ```package.json
-    "scripts": {
-      "version": "changelog-updater && git add CHANGELOG.md"
-    }
-  ```
+## Options
+
+### `--init`
+
+Creates a new changelog if it does not exist.
+
+Set `repository` in `package.json`:
+
+```json
+{
+  "repository": {
+    "url": "https://github.com/username/repository.git"
+  }
+}
+```
+
+Use in the root of your new project:
+
+```bash
+$ npx changelog-updater --init
+```
+
+### `--check`
+
+Fails if the changelog does not have any changes under [Unreleased], otherwise exits normally without updating the changelog.
+
+Use as a pre-commit hook or in testing pipelines:
+
+```bash
+$ npx changelog-updater --check
+```
+
+Or, use as a `preversion` script:
+
+```json
+{
+  "scripts": {
+    "preversion": "changelog-updater --check",
+    "version": "changelog-updater && git add CHANGELOG.md"
+  }
+}
+```
