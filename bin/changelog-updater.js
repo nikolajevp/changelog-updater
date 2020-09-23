@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-const updateChangelog = require('../lib/index');
+const { main } = require('../lib/index');
+const args = process.argv.slice(2);
 
-updateChangelog();
+main(args);
