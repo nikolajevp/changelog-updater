@@ -110,9 +110,15 @@ describe('changelog-updater', () => {
 	describe('--init', () => {
 		[
 			{ type: 'github', form: 'short' },
-			{ type: 'github', form: 'long' },
+			{ type: 'github', form: 'long.https' },
+			{ type: 'github', form: 'long.git' },
+			{ type: 'github', form: 'long.nosuffix' },
+			{ type: 'github', form: 'long.noproto' },
 			{ type: 'bitbucket', form: 'short' },
-			{ type: 'bitbucket', form: 'long' },
+			{ type: 'bitbucket', form: 'long.https' },
+			{ type: 'bitbucket', form: 'long.git' },
+			{ type: 'bitbucket', form: 'long.nosuffix' },
+			{ type: 'bitbucket', form: 'long.noproto' },
 		].forEach((testCase) => {
 			it(`should create a new changelog for \`${testCase.type}\` (${testCase.form} \`repository\`)`, () => {
 				readFileSyncMock
