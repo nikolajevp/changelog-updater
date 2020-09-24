@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.1] - 2020-09-24
 ### Fixed
 - Allow `--init` to identify URL in `repository.url` with any scheme, any domain name (e.g. `www.` or without), and with suffix `.git` or without
 
@@ -29,7 +31,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial commit
 
-[Unreleased]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/nikolajevp/changelog-updater/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/nikolajevp/changelog-updater/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/nikolajevp/changelog-updater/compare/v0.1.0...v1.0.0
