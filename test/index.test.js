@@ -112,11 +112,13 @@ describe('changelog-updater', () => {
 			{ type: 'github', form: 'short' },
 			{ type: 'github', form: 'long.https' },
 			{ type: 'github', form: 'long.git' },
+			{ type: 'github', form: 'long.git+https' },
 			{ type: 'github', form: 'long.nosuffix' },
 			{ type: 'github', form: 'long.noproto' },
 			{ type: 'bitbucket', form: 'short' },
 			{ type: 'bitbucket', form: 'long.https' },
 			{ type: 'bitbucket', form: 'long.git' },
+			{ type: 'bitbucket', form: 'long.git+https' },
 			{ type: 'bitbucket', form: 'long.nosuffix' },
 			{ type: 'bitbucket', form: 'long.noproto' },
 		].forEach((testCase) => {
