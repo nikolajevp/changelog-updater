@@ -21,7 +21,7 @@ describe('changelog-updater', () => {
 
 	const constantDate = new Date('2020-09-18T12:00:00');
 	const changelogFilename = 'CHANGELOG.md';
-	const noChangesMessage = `No changes under [Unreleased] in ${changelogFilename}`;
+	const noChangesMessage = `No changes detected under [Unreleased] in ${changelogFilename}!\nPlease use ### headings. See: https://keepachangelog.com`;
 
 	let main = () => {};
 
