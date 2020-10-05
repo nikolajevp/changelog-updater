@@ -1,0 +1,9 @@
+.eslintignore
+.eslintrc.json
+.nvmrc
+.prettierignore
+.prettierrc
+.travis.yml
+
+# No tests will be bundled with package installation
+test
