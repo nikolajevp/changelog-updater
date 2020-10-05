@@ -110,19 +110,19 @@ describe('changelog-updater', () => {
 	describe('--init', () => {
 		[
 			{ type: 'github', form: 'short' },
-			{ type: 'github', form: 'long.https' },
-			{ type: 'github', form: 'long.ssh' },
-			{ type: 'github', form: 'long.git' },
-			{ type: 'github', form: 'long.git+https' },
-			{ type: 'github', form: 'long.nosuffix' },
-			{ type: 'github', form: 'long.noproto' },
+			{ type: 'github', form: 'https' },
+			{ type: 'github', form: 'ssh' },
+			{ type: 'github', form: 'git' },
+			{ type: 'github', form: 'git+https' },
+			{ type: 'github', form: 'nosuffix' },
+			{ type: 'github', form: 'noscheme' },
 			{ type: 'bitbucket', form: 'short' },
-			{ type: 'bitbucket', form: 'long.https' },
-			{ type: 'bitbucket', form: 'long.ssh' },
-			{ type: 'bitbucket', form: 'long.git' },
-			{ type: 'bitbucket', form: 'long.git+https' },
-			{ type: 'bitbucket', form: 'long.nosuffix' },
-			{ type: 'bitbucket', form: 'long.noproto' },
+			{ type: 'bitbucket', form: 'https' },
+			{ type: 'bitbucket', form: 'ssh' },
+			{ type: 'bitbucket', form: 'git' },
+			{ type: 'bitbucket', form: 'git+https' },
+			{ type: 'bitbucket', form: 'nosuffix' },
+			{ type: 'bitbucket', form: 'noscheme' },
 		].forEach((testCase) => {
 			it(`should create a new changelog for \`${testCase.type}\` (${testCase.form} \`repository\`)`, () => {
 				readFileSyncMock
