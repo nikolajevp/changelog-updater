@@ -1,6 +1,6 @@
 {
 	"name": "changelog-updater",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Update [Unreleased] in CHANGELOG.md to current package version.",
 	"main": "lib/index.js",
 	"bin": {
