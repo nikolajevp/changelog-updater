@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.2] - 2020-10-05
 ### Changed
 - Changed `--check` error message to describe that headings under \[Unreleased\] should be at level 3 (`###`)
 
@@ -36,7 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial commit
 
-[Unreleased]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/nikolajevp/changelog-updater/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/nikolajevp/changelog-updater/compare/v1.0.0...v1.1.0
