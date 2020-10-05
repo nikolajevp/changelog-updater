@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Allow `--init` to identify URL in `repository.url` with scheme containing `+`
+- Allow `--init` to identify SSH links and URLs with scheme containing `+` in `repository.url`
 
 ## [2.0.1] - 2020-09-24
 ### Fixed
