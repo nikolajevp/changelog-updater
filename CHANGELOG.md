@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Updated
 - upgrade dependencies to reduce security risk
 
+### Changed
+- replaced `process.exit(0)` with simple return, otherwise package can't be used as dependency (since it exists the whole process, while control should stay at callee)
+
 ## [2.0.2] - 2020-10-05
 ### Changed
 - Changed `--check` error message to describe that headings under \[Unreleased\] should be at level 3 (`###`)
