@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.3] - 2022-10-26
 ### Updated
 - upgrade dependencies to reduce security risk
 
@@ -43,7 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial commit
 
-[Unreleased]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.2...HEAD
+[Unreleased]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.3...HEAD
+[2.0.3]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/nikolajevp/changelog-updater/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/nikolajevp/changelog-updater/compare/v1.1.0...v2.0.0
