@@ -27,7 +27,6 @@ describe('changelog-updater', () => {
 
 	let readFileSyncMock;
 	let writeFileSyncMock;
-	let exitMock;
 
 	let _Date;
 	let _npmPackageVersion;
@@ -54,7 +53,6 @@ describe('changelog-updater', () => {
 
 		readFileSyncMock = jest.spyOn(fs, 'readFileSync');
 		writeFileSyncMock = jest.spyOn(fs, 'writeFileSync');
-		exitMock = jest.spyOn(process, 'exit');
 
 		main = require('../lib/index').main;
 	});
@@ -197,7 +195,7 @@ describe('changelog-updater', () => {
 
 			main(['--check']);
 
-			expect(exitMock.mock.calls[0][0]).toEqual(0);
+			expect(writeFileSyncMock).not.toBeCalled();
 		});
 
 		it('should throw if using `--check` and [Unreleased] section is empty', () => {
