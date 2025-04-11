@@ -24,10 +24,6 @@
 	},
 	"author": "Pavel Nikolajev",
 	"contributors": [
-		{
-			"name": "Charlie Karniol",
-			"url": "https://github.com/karniol"
-		}
 	],
 	"license": "MIT",
 	"dependencies": {},
